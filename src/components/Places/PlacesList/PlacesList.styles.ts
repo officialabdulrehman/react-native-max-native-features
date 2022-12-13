@@ -10,6 +10,7 @@ export const styles = DynamicStyleSheet.create((props) => ({
     alignItems: "center"
   },
   fallbackText: {
-    fontSize: 16
+    fontSize: 16,
+    color: props.colors.primary200
   }
 }))

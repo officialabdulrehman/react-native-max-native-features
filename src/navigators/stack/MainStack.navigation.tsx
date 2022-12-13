@@ -22,6 +22,7 @@ export const MainStackNavigator = () => {
         name={Screens.AllPlaces}
         component={AllPlaces}
         options={({ navigation }) => ({
+          title: "Your Favorite Places",
           headerRight: () => (
             <IconButton
               name="add"
@@ -32,7 +33,13 @@ export const MainStackNavigator = () => {
           ),
         })}
       />
-      <Stack.Screen name={Screens.AddPlace} component={AddPlace} />
+      <Stack.Screen
+        name={Screens.AddPlace}
+        component={AddPlace}
+        options={() => ({
+          title: "Add a new Place",
+        })}
+      />
     </Stack.Navigator>
   );
 };

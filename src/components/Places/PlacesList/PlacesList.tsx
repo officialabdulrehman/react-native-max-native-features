@@ -10,7 +10,7 @@ type Props = {
 export const PlacesList = (props: Props) => {
   const { places } = props;
 
-  if (places.length!) {
+  if (!places.length) {
     return (
       <View style={styles.fallbackContainer}>
         <Text style={styles.fallbackText}>No places found</Text>
