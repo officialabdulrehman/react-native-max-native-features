@@ -1,4 +1,4 @@
-import { PlacesList } from "../../components/PlacesList/PlacesList";
+import { PlacesList } from "../../components/Places/PlacesList/PlacesList";
 
 type Props = {};
 

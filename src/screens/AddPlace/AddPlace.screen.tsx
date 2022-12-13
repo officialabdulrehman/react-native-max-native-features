@@ -1,7 +1,7 @@
-import { View } from "react-native";
+import { PlaceForm } from "../../components/Places/PlaceForm/PlaceForm";
 
 type Props = {};
 
 export const AddPlace = (props: Props) => {
-  return <View></View>;
+  return <PlaceForm />;
 };

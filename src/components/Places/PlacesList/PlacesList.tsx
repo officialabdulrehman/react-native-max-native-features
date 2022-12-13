@@ -1,5 +1,5 @@
 import { FlatList, Text, View } from "react-native";
-import { Place } from "../../models/Place.model";
+import { Place } from "../../../models/Place.model";
 import { PlaceItem } from "../PlaceItem/PlaceItem";
 import { styles } from "./PlacesList.styles";
 
