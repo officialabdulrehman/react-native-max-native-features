@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useSelector } from "react-redux";
+import { IconButton } from "../../components/UI/IconButton/IconButton";
 import { AddPlace } from "../../screens/AddPlace/AddPlace.screen";
 import { AllPlaces } from "../../screens/AllPlaces/AllPlaces.screen";
 import { Screens } from "../../screens/Screens.enum";
@@ -17,7 +18,20 @@ export const MainStackNavigator = () => {
         contentStyle: { backgroundColor: theme.backgroundColors.primary100 },
       }}
     >
-      <Stack.Screen name={Screens.AllPlaces} component={AllPlaces} />
+      <Stack.Screen
+        name={Screens.AllPlaces}
+        component={AllPlaces}
+        options={({ navigation }) => ({
+          headerRight: () => (
+            <IconButton
+              name="add"
+              color={theme.colors.primary400}
+              size={26}
+              onPress={() => navigation.navigate(Screens.AddPlace)}
+            />
+          ),
+        })}
+      />
       <Stack.Screen name={Screens.AddPlace} component={AddPlace} />
     </Stack.Navigator>
   );
