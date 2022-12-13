@@ -1,7 +1,7 @@
-import { View } from "react-native";
+import { PlacesList } from "../../components/PlacesList/PlacesList";
 
 type Props = {};
 
 export const AllPlaces = (props: Props) => {
-  return <View></View>;
+  return <PlacesList places={[]} />;
 };

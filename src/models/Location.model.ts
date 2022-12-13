@@ -1,4 +1,4 @@
 export class Location {
-  lat: number | null = null
-  long: number | null = null
+  lat: number = -1
+  long: number = -1
 }
