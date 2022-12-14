@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import {
   launchCameraAsync,
   PermissionStatus,
@@ -48,15 +49,15 @@ export const ImagePicker = (props: Props) => {
 
   let imagePreview = <Text>No image taken yet</Text>;
   if (image) {
-    imagePreview = (
-      <Image source={{ uri: image }} style={styles.previewImage} />
-    );
+    imagePreview = <Image source={{ uri: image }} />;
   }
+
+  const icon: string = (<Ionicons name="camera" size={24} />) as any;
 
   return (
     <View>
-      <View>{imagePreview}</View>
-      <Button onPress={handleTakeImage}>Camera</Button>
+      <View style={styles.previewImage}>{imagePreview}</View>
+      <Button onPress={handleTakeImage}>{icon}</Button>
     </View>
   );
 };
