@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { IconButton } from "../../components/UI/IconButton/IconButton";
 import { AddPlace } from "../../screens/AddPlace/AddPlace.screen";
 import { AllPlaces } from "../../screens/AllPlaces/AllPlaces.screen";
+import { Map } from "../../screens/Map/Map.screen";
 import { Screens } from "../../screens/Screens.enum";
 import { RootState } from "../../store/redux/store";
 
@@ -38,6 +39,13 @@ export const MainStackNavigator = () => {
         component={AddPlace}
         options={() => ({
           title: "Add a new Place",
+        })}
+      />
+      <Stack.Screen
+        name={Screens.Map}
+        component={Map}
+        options={() => ({
+          title: "Pick a location",
         })}
       />
     </Stack.Navigator>
