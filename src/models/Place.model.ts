@@ -1,9 +1,23 @@
 import { Location } from "./Location.model"
 
+interface PlaceI {
+  title: string
+  imageUri: string
+  location: Location
+}
+
 export class Place {
-  id: string = new Date().toString() + Math.random().toString()
+  id?: string = new Date().toString() + Math.random().toString()
   title: string = ""
   imageUri: string = ""
   address: string = ""
-  location: Location = { lat: -1, long: -1 }
+  location: Location = { lat: -1, lng: -1, }
+
+  constructor({ title, imageUri, location }: PlaceI) {
+    this.id = new Date().toString() + Math.random().toString()
+    this.title = title
+    this.imageUri = imageUri
+    this.address = location.address as string
+    this.location = location
+  }
 }

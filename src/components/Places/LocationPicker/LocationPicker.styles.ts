@@ -27,6 +27,10 @@ export const styles = DynamicStyleSheet.create((props) => ({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginBottom: 50,
+    margin: 10,
+    marginBottom: 15
   },
+  button: {
+    width: "40%"
+  }
 }))

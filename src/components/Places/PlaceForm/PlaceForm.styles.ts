@@ -4,6 +4,7 @@ export const styles = DynamicStyleSheet.create((props) => ({
   container: {
     flex: 1,
     padding: 24,
+    paddingBottom: 0,
     backgroundColor: props.backgroundColors.primary000,
   },
   label: {
@@ -21,5 +22,8 @@ export const styles = DynamicStyleSheet.create((props) => ({
     fontSize: 16,
     borderRadius: 10,
     backgroundColor: props.backgroundColors.primary100
+  },
+  buttonContainer: {
+    marginBottom: 50
   }
 }))

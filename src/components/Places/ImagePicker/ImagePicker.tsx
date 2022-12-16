@@ -9,9 +9,12 @@ import { Alert, Image, Text, View } from "react-native";
 import { Button } from "../../UI/Button/Button";
 import { styles } from "./ImagePicker.styles";
 
-type Props = {};
+type Props = {
+  onTakeImage: (imageUri: string) => void;
+};
 
 export const ImagePicker = (props: Props) => {
+  const { onTakeImage } = props;
   const [image, setImage] = useState<string>();
   const [cameraPermissionsInfo, requestCameraPermission] =
     useCameraPermissions();
@@ -44,18 +47,21 @@ export const ImagePicker = (props: Props) => {
     });
     if (!image.canceled) {
       setImage(image.assets[0].uri);
+      onTakeImage(image.assets[0].uri);
     }
   };
 
   let imagePreview = <Text>No image taken yet</Text>;
   if (image) {
-    imagePreview = <Image source={{ uri: image }} />;
+    imagePreview = (
+      <Image style={styles.previewImage} source={{ uri: image }} />
+    );
   }
 
   const icon: string = (<Ionicons name="camera" size={24} />) as any;
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.previewImage}>{imagePreview}</View>
       <Button onPress={handleTakeImage}>{icon}</Button>
     </View>

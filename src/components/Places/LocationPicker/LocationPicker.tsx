@@ -17,10 +17,13 @@ import { Alert, Text, View } from "react-native";
 import MapView, { Marker, Region } from "react-native-maps";
 import { Location } from "../../../models/Location.model";
 import { Screens } from "../../../screens/Screens.enum";
+import { getAddress } from "../../../util/location";
 import { Button } from "../../UI/Button/Button";
 import { styles } from "./LocationPicker.styles";
 
-type Props = {};
+type Props = {
+  onPickLocation: (location: Location) => void;
+};
 
 type LocObject = {
   lat: number;
@@ -38,6 +41,7 @@ type RouteParams = {
 };
 
 export const LocationPicker = (props: Props) => {
+  const { onPickLocation } = props;
   const [pickedLocation, setPickedLocation] = useState<LocObject>();
   const [locationPermissionsInfo, requestlocationPermission] =
     useForegroundPermissions();
@@ -50,6 +54,19 @@ export const LocationPicker = (props: Props) => {
       setPickedLocation(route.params.pickedLocation);
     }
   }, [isFocused, route]);
+
+  useEffect(() => {
+    const handleAddress = async () => {
+      if (pickedLocation) {
+        const address = await getAddress(
+          pickedLocation.lat,
+          pickedLocation.lng
+        );
+        onPickLocation({ ...pickedLocation, address });
+      }
+    };
+    handleAddress();
+  }, [pickedLocation, onPickLocation]);
 
   const verifyPermission = async () => {
     if (locationPermissionsInfo?.status === PermissionStatus.UNDETERMINED) {
@@ -119,10 +136,16 @@ export const LocationPicker = (props: Props) => {
 
   return (
     <View>
-      <View style={styles.mapPreview}>{locationPreview}</View>
+      <View pointerEvents="none" style={styles.mapPreview}>
+        {locationPreview}
+      </View>
       <View style={styles.actionsContainer}>
-        <Button onPress={handleGeoLocateUser}>{locationIcon}</Button>
-        <Button onPress={handlePickOnMap}>{mapIcon}</Button>
+        <View style={styles.button}>
+          <Button onPress={handleGeoLocateUser}>{locationIcon}</Button>
+        </View>
+        <View style={styles.button}>
+          <Button onPress={handlePickOnMap}>{mapIcon}</Button>
+        </View>
       </View>
     </View>
   );
