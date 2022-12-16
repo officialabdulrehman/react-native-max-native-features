@@ -1,5 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import {
+  RouteProp,
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   getCurrentPositionAsync,
@@ -7,10 +12,11 @@ import {
   PermissionStatus,
   useForegroundPermissions,
 } from "expo-location";
-import { useState } from "react";
-import { Alert, Image, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Alert, Text, View } from "react-native";
+import MapView, { Marker, Region } from "react-native-maps";
+import { Location } from "../../../models/Location.model";
 import { Screens } from "../../../screens/Screens.enum";
-import { getMapPreview } from "../../../util/location";
 import { Button } from "../../UI/Button/Button";
 import { styles } from "./LocationPicker.styles";
 
@@ -21,13 +27,29 @@ type LocObject = {
   lng: number;
 };
 
-type NavProps = {};
+type NavProps = {
+  Map: {};
+};
+
+type RouteParams = {
+  Map: {
+    pickedLocation: Location;
+  };
+};
 
 export const LocationPicker = (props: Props) => {
   const [pickedLocation, setPickedLocation] = useState<LocObject>();
   const [locationPermissionsInfo, requestlocationPermission] =
     useForegroundPermissions();
   const navigation = useNavigation<NativeStackNavigationProp<NavProps>>();
+  const route = useRoute<RouteProp<RouteParams, Screens.Map>>();
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused && route.params) {
+      setPickedLocation(route.params.pickedLocation);
+    }
+  }, [isFocused, route]);
 
   const verifyPermission = async () => {
     if (locationPermissionsInfo?.status === PermissionStatus.UNDETERMINED) {
@@ -60,18 +82,35 @@ export const LocationPicker = (props: Props) => {
   };
 
   const handlePickOnMap = () => {
-    navigation.navigate(Screens.Map, {});
+    navigation.navigate(Screens.Map, { defaultLocation: pickedLocation });
   };
 
   let locationPreview = <Text>No location picked yet.</Text>;
 
   if (pickedLocation) {
+    // locationPreview = (
+    //   <Image
+    //     source={{
+    //       uri: getMapPreview(pickedLocation?.lat, pickedLocation?.lng),
+    //     }}
+    //   />
+    // );
+    const region: Region = {
+      latitude: pickedLocation?.lat,
+      longitude: pickedLocation?.lng,
+      latitudeDelta: 0.095,
+      longitudeDelta: 0.05,
+    };
     locationPreview = (
-      <Image
-        source={{
-          uri: getMapPreview(pickedLocation?.lat, pickedLocation?.lng),
-        }}
-      />
+      <MapView style={styles.mapPreview} initialRegion={region}>
+        <Marker
+          title="Picked Location"
+          coordinate={{
+            latitude: pickedLocation?.lat,
+            longitude: pickedLocation?.lng,
+          }}
+        />
+      </MapView>
     );
   }
 

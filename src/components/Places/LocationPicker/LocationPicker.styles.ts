@@ -11,7 +11,8 @@ export const styles = DynamicStyleSheet.create((props) => ({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    backgroundColor: props.backgroundColors.primary100
+    backgroundColor: props.backgroundColors.primary100,
+    overflow: "hidden"
   },
   image: {
     width: "100%",
