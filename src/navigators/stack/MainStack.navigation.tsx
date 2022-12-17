@@ -4,6 +4,7 @@ import { IconButton } from "../../components/UI/IconButton/IconButton";
 import { AddPlace } from "../../screens/AddPlace/AddPlace.screen";
 import { AllPlaces } from "../../screens/AllPlaces/AllPlaces.screen";
 import { Map } from "../../screens/Map/Map.screen";
+import { PlaceDetails } from "../../screens/PlaceDetails/PlaceDetails.screen";
 import { Screens } from "../../screens/Screens.enum";
 import { RootState } from "../../store/redux/store";
 
@@ -46,6 +47,14 @@ export const MainStackNavigator = () => {
         component={Map}
         options={() => ({
           title: "Pick a location",
+        })}
+      />
+
+      <Stack.Screen
+        name={Screens.PlaceDetails}
+        component={PlaceDetails}
+        options={() => ({
+          title: "Place Details",
         })}
       />
     </Stack.Navigator>

@@ -22,16 +22,22 @@ type RouteParams = {
   AddPlace: {
     defaultLocation: Location;
   };
+  PlaceDetails: {
+    location: Location;
+  };
 };
 
 export const Map = (props: Props) => {
   const theme = useSelector((state: RootState) => state.themeReducer.theme);
   const navigation = useNavigation<NativeStackNavigationProp<NavProps>>();
-  const route = useRoute<RouteProp<RouteParams, Screens.AddPlace>>();
-  const { defaultLocation } = route.params;
+  const routeAddPlace = useRoute<RouteProp<RouteParams, Screens.AddPlace>>();
+  const routePlaceDetails =
+    useRoute<RouteProp<RouteParams, Screens.PlaceDetails>>();
+  const { defaultLocation } = routeAddPlace.params;
+  const { location } = routePlaceDetails.params;
   const region: Region = {
-    latitude: defaultLocation?.lat || 37.78,
-    longitude: defaultLocation?.lng || -122.43,
+    latitude: location?.lat || defaultLocation?.lat || 37.78,
+    longitude: location?.lng || defaultLocation?.lng || -122.43,
     latitudeDelta: 0.9,
     longitudeDelta: 0.9,
   };
@@ -56,22 +62,24 @@ export const Map = (props: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <IconButton
-          name="save"
-          size={24}
-          color={theme.colors.primary400}
-          onPress={savePickedLocation}
-        />
-      ),
+      headerRight: () =>
+        !location && (
+          <IconButton
+            name="save"
+            size={24}
+            color={theme.colors.primary400}
+            onPress={savePickedLocation}
+          />
+        ),
     });
-  }, [navigation, savePickedLocation]);
+  }, [navigation, savePickedLocation, location]);
 
   return (
     <MapView
       style={styles.container}
       initialRegion={region}
       onPress={handleLocationSelection}
+      // pointerEvents={location ? "none" : "auto"}
     >
       {selectedLocation && (
         <Marker
@@ -80,6 +88,7 @@ export const Map = (props: Props) => {
             latitude: selectedLocation?.lat,
             longitude: selectedLocation?.lng,
           }}
+          // pointerEvents={location ? "none" : "auto"}
         />
       )}
     </MapView>

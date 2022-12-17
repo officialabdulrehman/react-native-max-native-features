@@ -4,18 +4,18 @@ import { styles } from "./PlaceItem.styles";
 
 type Props = {
   place: Place;
-  onSelect: () => void;
+  onSelect: (id: string) => void;
 };
 
 export const PlaceItem = (props: Props) => {
   const {
-    place: { title, address, imageUri },
+    place: { id, title, address, imageUri },
     onSelect,
   } = props;
   return (
     <Pressable
       style={({ pressed }) => [styles.container, pressed && styles.pressed]}
-      onPress={onSelect}
+      onPress={() => onSelect(id as string)}
     >
       <Image style={styles.image} source={{ uri: imageUri }} />
       <View style={styles.infoContainer}>

@@ -8,14 +8,14 @@ interface PlaceI {
 }
 
 export class Place {
-  id?: string = new Date().toString() + Math.random().toString()
+  id?: string = ""
   title: string = ""
   imageUri: string = ""
   address: string = ""
   location: Location = { lat: -1, lng: -1, }
 
   constructor({ title, imageUri, location, id }: PlaceI) {
-    this.id = new Date().toString() + Math.random().toString()
+    this.id = id
     this.title = title
     this.imageUri = imageUri
     this.address = location.address as string
