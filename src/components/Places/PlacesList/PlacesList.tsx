@@ -23,6 +23,7 @@ export const PlacesList = (props: Props) => {
       data={places}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => <PlaceItem place={item} onSelect={() => {}} />}
+      style={styles.container}
     />
   );
 };

@@ -2,7 +2,7 @@ import { DynamicStyleSheet } from "../../../styles/Dynamic.StyleSheet";
 
 export const styles = DynamicStyleSheet.create((props) => ({
   container: {
-
+    margin: 20
   },
   fallbackContainer: {
     flex: 1,
