@@ -20,6 +20,6 @@ export const getAddress = async (lat: number, lng: number): Promise<string> => {
 
     return address as string
   } catch (e) {
-    return "mock address, street 1, 6th avenue, brooklyn, newyork, US"
+    return "mock address, street 1, 6th avenue, brooklyn, nyc, US"
   }
 } 

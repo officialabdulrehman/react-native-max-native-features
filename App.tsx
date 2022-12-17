@@ -2,7 +2,7 @@ import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
-import { init } from "./src/config/database";
+import { fetchPlaceDetails, fetchPlaces, init } from "./src/config/database";
 import { RootNavigator } from "./src/navigators/Root.navigation";
 import { store } from "./src/store/redux/store";
 
@@ -14,6 +14,8 @@ export default function App() {
       try {
         const db = await init();
         console.log("DB Initialized => ", db);
+        console.log(await fetchPlaceDetails("1"));
+        console.log(await fetchPlaces());
       } catch (e) {
         console.log("DB failed => ", e);
       }
