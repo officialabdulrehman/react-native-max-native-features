@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "maximillian-expense-tracker",
-    "slug": "maximillian-expense-tracker",
+    "name": "maximillian-native-features",
+    "slug": "maximillian-native-features",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
